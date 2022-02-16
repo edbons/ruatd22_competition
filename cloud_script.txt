@@ -1,0 +1,40 @@
+sudo apt update; sudo apt upgrade; sudo apt install python3-pip unzip
+sudo apt-get install python3-setuptools p7zip-full p7zip-rar musl
+
+pip3 install numpy pandas tqdm sklearn
+pip3 install torch==1.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+pip3 install transformers==4.16.2
+pip3 install datasets==1.18.3
+
+mkdir ruatd; cd ruatd  
+
+FILEID='1gIWT0KWJ0XxZ2qs0MNkdcTc_A3CMcr1l' && \
+FILENAME='ruatd-2022-bi.zip' && \
+FILEDEST="https://docs.google.com/uc?export=download&id=${FILEID}" && \
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate ${FILEDEST} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${FILEID}" -O $FILENAME && rm -rf /tmp/cookies.txt
+
+FILEID='1k860ig90GWjf1wixPWemURy9LT24l5I-' && \
+FILENAME='train.py' && \
+FILEDEST="https://docs.google.com/uc?export=download&id=${FILEID}" && \
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate ${FILEDEST} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${FILEID}" -O $FILENAME && rm -rf /tmp/cookies.txt
+
+
+FILEID='1kTsvQirEzkCJUWD-ot1hXdataH4YVSfb' && \
+FILENAME='evaluate.py' && \
+FILEDEST="https://docs.google.com/uc?export=download&id=${FILEID}" && \
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate ${FILEDEST} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${FILEID}" -O $FILENAME && rm -rf /tmp/cookies.txt
+
+
+
+
+unzip ruatd-2022-bi.zip
+
+python3 -m train
+
+7z a out.7z out
+
+wget https://github.com/prasmussen/gdrive/releases/download/2.1.1/gdrive_2.1.1_linux_amd64.tar.gz
+tar -xzvf gdrive_2.1.1_linux_amd64.tar.gz
+sudo install gdrive /usr/local/bin/gdrive
+gdrive upload -p <1u0jweYrxIc3vo6wAqcPNPORw5HKjIUfd> out.7z # 1u0jweYrxIc3vo6wAqcPNPORw5HKjIUfd
+rm .gdrive/token_v2.json
