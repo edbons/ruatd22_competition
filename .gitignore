@@ -133,5 +133,8 @@ dmypy.json
 *.csv
 *.zip
 *.xlsx
-others/
+# others/
 *_trainer
+*.pdf
+*.npy
+*.txt
