@@ -41,10 +41,8 @@ if __name__ == "__main__":
     df_train = df_train.convert_dtypes()
     print(df_train.info())
 
-    # model_name = "DeepPavlov/rubert-base-cased-sentence"
     model_name = "DeepPavlov/rubert-base-cased"
     print(model_name)
-    # model_name = 'cointegrated/rubert-tiny'
     num_labels = 2
     batch_size = 32 # T4: 32, 
     epochs = 3
@@ -52,7 +50,6 @@ if __name__ == "__main__":
     max_len = 200
 
     tokenizer_bert = AutoTokenizer.from_pretrained(model_name)
-
 
     ds_val = build_dataset(df_val, tokenizer_bert, max_length=max_len)
     ds_train = build_dataset(df_train, tokenizer_bert, max_length=max_len)
@@ -71,28 +68,47 @@ if __name__ == "__main__":
         return metric.compute(predictions=predictions, references=labels)
 
 
-    training_args = TrainingArguments("test_trainer", 
+    # training_args = TrainingArguments("test_trainer", 
+    #                                 per_device_train_batch_size=batch_size, 
+    #                                 per_device_eval_batch_size=batch_size,
+    #                                 num_train_epochs=epochs,
+    #                                 learning_rate=lr,
+    #                                 save_strategy='epoch',
+    #                                 evaluation_strategy='epoch',
+    #                                 save_total_limit=2,
+    #                                 load_best_model_at_end=True,
+    #                                 do_train=True,
+    #                                 do_eval=True,
+    #                                 optim='adamw_torch',
+    #                                 report_to="none"
+    #                                 )
+
+
+    # Validate accuracy on step
+    training_args_step = TrainingArguments("step_trainer", 
                                     per_device_train_batch_size=batch_size, 
                                     per_device_eval_batch_size=batch_size,
                                     num_train_epochs=epochs,
                                     learning_rate=lr,
-                                    save_strategy='epoch',
-                                    evaluation_strategy='epoch',
+                                    save_strategy='steps',
+                                    evaluation_strategy='steps',
+                                    logging_strategy='steps',
                                     save_total_limit=2,
                                     load_best_model_at_end=True,
                                     do_train=True,
                                     do_eval=True,
                                     optim='adamw_torch',
-                                    report_to="none"
+                                    report_to="none",
+                                    disable_tqdm=False
                                     )
 
     trainer = Trainer(model=bert, 
-                    args=training_args, 
+                    args=training_args_step, 
                     train_dataset=ds_train, 
                     eval_dataset=ds_val,
                     compute_metrics=compute_metrics,
                     tokenizer=tokenizer_bert, 
-                    callbacks=[EarlyStoppingCallback(early_stopping_patience=1)]
+                    callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
                     )
 
 
