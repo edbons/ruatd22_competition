@@ -142,3 +142,4 @@ dataset/*.npy
 *.txt
 *.joblib
 others/code*
+cloud*
