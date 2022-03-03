@@ -133,9 +133,12 @@ dmypy.json
 *.csv
 *.zip
 *.xlsx
+
 # others/
 *_trainer
 *.pdf
-*.npy
+others/Data/google*.npy
+dataset/*.npy
 *.txt
 *.joblib
+others/code*

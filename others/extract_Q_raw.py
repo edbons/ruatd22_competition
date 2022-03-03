@@ -8,7 +8,7 @@ import pickle
 from tqdm import tqdm
 import pandas as pd
 
-DS_PATH = 'G:/Мой диск/Colab Notebooks/kaggle/ruatd22_competion'
+DS_PATH = '<PROJECT PATH>/dataset'
 SPLITS = ['train', 'val', 'test']
 SAVE_PATH = './Data'
 LABELS = ['H', 'M']
