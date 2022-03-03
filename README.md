@@ -5,7 +5,7 @@
 * bert/  - каталог со скриптами для дообучения модели BERT;
 * others/ - каталог со скриптами извлечения признаков из рускких текстов;
 * models/ - сохраненные модели (не BERT);
-* dataset/ - файлы исходного и обработанного датасета;
+* dataset/ - файлы исходного и обработанного датасета (доступны по ссылке [Google Disk](https://drive.google.com/file/d/10OC2UdGLJXJ7Jf6QjrvxI6p_ujQU8UUC/view?usp=sharing));
 * ru_atd.ipynb - jupyter notebook с экспериментами.
 
 # Эксперименты
