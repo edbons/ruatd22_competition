@@ -141,5 +141,5 @@ others/Data/google*.npy
 dataset/*.npy
 *.txt
 *.joblib
-others/code*
+others/code_src*
 cloud*
